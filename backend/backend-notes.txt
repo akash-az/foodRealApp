@@ -1,0 +1,156 @@
+npm init -y  : initialzes a node app.
+
+create a server : using express 
+
+app.js role: server is created inside it.
+server.js : we start server here. 
+
+
+
+----------------------
+
+## app.js
+
+ first create - app.js :  
+
+// create server
+
+const express = require("express");
+
+const app = express(); // create instance of a server
+
+module.exports = app; // export this server so that it can be run in server.js or anywhere.
+
+## app.js
+
+
+-----------------------
+
+## server.js 
+
+create server.js : 
+
+// start server here , we import from app.js
+const app = require('./src/app') // here same name is not required as exported name i.e const hero = require ..
+
+
+app.listen(3000, () => {console.log("server is running on port 3000")}); // used to start theb server
+
+## server.js
+
+------------------------
+
+* in terminal to start server : npx nodemon server.js (nodemon automatically restarts the server when tehre are changes)
+
+
+--------------------------
+
+## db.js
+
+const mongoose = require("mongoose");
+
+
+// this function needs to be called for establishing database connection.here we only write how to connect and this function is called in server.js
+
+function connectDB() {
+  // we write here kis tarah se code connect karega database se.
+  mongoose
+    .connect("mongodb://localhoast:27017/food-view")
+    .then(() => {
+      // this is a callback function used by writing then .
+      console.log("connection established");
+    })
+    .catch((error) => {
+      // for catching erro and logging it.
+      console.log("mogodb database connection error", error);
+    });
+}
+
+
+module.exports = connectDB;
+
+## db.js
+
+---------------------------
+
+Step 1: we created server, started the server, created dummy url. 
+Step 2: connect the server to the database. we are using mongodb
+        install mogodb database locally or use mongo db atlas 
+ one seperate folder  is created for data base connection in src :  db(folder) -> db.js
+        
+Step 3: create routes for user authentication 
+       // we create model for user in models folder to interact with database and then we write controller for register and login in controllers folder and 
+           then we write api for register and login in routes folder.
+       //  we have to export this router to app.js file so that it can be used there.
+
+
+
+
+
+
+_________________________________________________________________________________________
+
+ ** error encounter during dabase connection establishment: 
+
+
+ actual error in terminal : 
+
+ mogodb database connection error MongooseServerSelectionError: getaddrinfo ENOTFOUND localhoast
+    at _handleConnectionErrors (E:\Akash\Tutorials\sheriyans coding School\reelAPP\backend\node_modules\mongoose\lib\connection.js:1180:11)
+    at NativeConnection.openUri (E:\Akash\Tutorials\sheriyans coding School\reelAPP\backend\node_modules\mongoose\lib\connection.js:1111:11) {
+  errorLabelSet: Set(0) {},
+  reason: TopologyDescription {
+    type: 'Unknown',
+    servers: Map(1) { 'localhoast:27017' => [ServerDescription] },
+    stale: false,
+    compatible: true,
+    heartbeatFrequencyMS: 10000,
+    localThresholdMS: 15,
+    setName: null,
+    maxElectionId: null,
+    maxSetVersion: null,
+    commonWireVersion: 0,
+    logicalSessionTimeoutMinutes: null
+  },
+  code: undefined,
+  cause: TopologyDescription {
+    type: 'Unknown',
+    servers: Map(1) { 'localhoast:27017' => [ServerDescription] },
+    stale: false,
+    compatible: true,
+    heartbeatFrequencyMS: 10000,
+    localThresholdMS: 15,
+    setName: null,
+    maxElectionId: null,
+    maxSetVersion: null,
+    commonWireVersion: 0,
+    logicalSessionTimeoutMinutes: null
+  }
+}
+ 
+ ->  * explanation -> The error:
+
+getaddrinfo ENOTFOUND localhoast
+
+Means:
+
+Node is trying to find a host named "localhoast"
+But that doesn’t exist → so DNS lookup fails
+
+error was : I misppelled localhoast instead of localhost.
+
+
+
+
+
+
+
+
+
+2nd error : Cannot destructure property 'fullName' of 'req.body' as it is undefined.
+
+resolution : first confirm the url path is correct
+reason : in postman in body i by default type is : text , but it should be json.
+_____________________________________________________________________________________________
+
+

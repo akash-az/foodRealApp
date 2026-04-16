@@ -1,0 +1,8 @@
+basic user - see the food reels, view food items
+
+food partner - adds(list) their foods items
+
+Apis for backed - auth api(for user , for partner ) : register, login, logout.
+
+
+
