@@ -3,10 +3,11 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/auth.routes");
-
+const foodRoutes = require("./routes/food.routes")
+ 
 const app = express(); // create instance of a server
 
-app.use(cookieParser()); // middlewear
+app.use(cookieParser()); // middlewear, also if not present srver cannot read data of cookie. cookies has a property that whatever data is saved in the cookie comes with every requst on the server
 app.use(express.json()); //  middleware for reading data from request body. data redable banata hai requst body ka.
 
 app.get("/", (req, res) => {
@@ -15,5 +16,6 @@ app.get("/", (req, res) => {
 // controller right beside path, but when creating apis in different file we make seperate file (name coontroller for writing controllers for apis).
 
 app.use("/api/auth", authRoutes); // here prefix ("/api/auth") is not necessary. But for production apis should be categorized.
+app.use("/api/food", foodRoutes);
 
 module.exports = app; // export this server so that it can be run in server.js or anywhere.

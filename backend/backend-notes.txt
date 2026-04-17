@@ -151,6 +151,91 @@ error was : I misppelled localhoast instead of localhost.
 
 resolution : first confirm the url path is correct
 reason : in postman in body i by default type is : text , but it should be json.
+
+
+
+
+
+
+
+
+
+3rd error :
+
+Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at ServerResponse.setHeader (node:_http_outgoing:655:11)
+    at ServerResponse.header (E:\Akash\Tutorials\sheriyans coding School\reelAPP\backend\node_modules\express\lib\response.js:686:10)
+    at ServerResponse.send (E:\Akash\Tutorials\sheriyans coding School\reelAPP\backend\node_modules\express\lib\response.js:163:12)
+    at ServerResponse.json (E:\Akash\Tutorials\sheriyans coding School\reelAPP\backend\node_modules\express\lib\response.js:252:15)
+    at authFoodPartnerMiddleware (E:\Akash\Tutorials\sheriyans coding School\reelAPP\backend\src\middleware\auth.middleware.js:26:32)
+    at Layer.handleRequest (E:\Akash\Tutorials\sheriyans coding School\reelAPP\backend\node_modules\router\lib\layer.js:152:17)
+    at next (E:\Akash\Tutorials\sheriyans coding School\reelAPP\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (E:\Akash\Tutorials\sheriyans coding School\reelAPP\backend\node_modules\router\lib\route.js:117:3)
+    at handle (E:\Akash\Tutorials\sheriyans coding School\reelAPP\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (E:\Akash\Tutorials\sheriyans coding School\reelAPP\backend\node_modules\router\lib\layer.js:152:17)
+
+
+    reason : i was sending two responses one after another bcuz i forgot to typr return : in case of if(!token) : so code continues 
+            * Also the stck trace shows error file location from line 4 or line 5.
+
+    async function authFoodPartnerMiddleware(req, res, next) {
+  const token = req.cookies.token;
+
+  if (!token) {
+    res.status(401).json({
+      message: "Unauthorized access",
+    });
+  }
+
+  try {
+    const decoded =  jwt.verify(token, process.env.JWT_SECRET); // jwt.verify() , function verifies the token and takes 2 parameter, 
+    // the token created in cookies etc.. or actual secret key created // also return the data saved in tokn in object form. in this case "id" was saved so id is returned , 
+    // if token is not right then this function returns error, this is why try catch is being used.
+
+    const foodPartner = await foodPartnerModel.findById(decoded.id); 
+
+    req.foodPartner = foodPartner // we are creating new value in req with name "foodpartner"
+
+    next()
+
+  } catch (err) {
+        return res.status(401).json({
+            message:"please login first"
+        })
+  }
+}
 _____________________________________________________________________________________________
 
+
+
+
+** multer is used for allowing express to read file(any file video,image etc)
+
+
+const foodModel = require("../models/food.model");
+
+async function createFood(req, res) {
+  console.log(req.foodPartner); // this value is coming from authFoodPartnerMiddleware, we can access it in all controllers where we want to use it by writing req.foodPartner
+  console.log(req.body); // when in response a file is sent (like video), server cannot read it directly so we use multer for it. multer is used as middlewear in food.routes.js file,
+  // so we can access the file in req.file and other data in req.body
+
+  console.log(req.file); // this is the file which is coming from postman form-data key "video" and it is being processed by multer middlewear in food.routes.js file
+  return res.status(200).json({
+    message: "food Added",
+  });
+}
+
+module.exports = { createFood };
+
+this is log in terminal. Buffer format is how video or file is saved in ssd or storage. and alos transferred in buffer format.
+{
+  fieldname: 'video',
+  originalname: 'food.mp4',
+  encoding: '7bit',
+  mimetype: 'video/mp4',
+  buffer: <Buffer 00 00 00 20 66 74 79 70 6d 70 34 32 00 00 00 00 6d 70 34 32 6d 70 34 31 69 73 6f 6d 61 76 63 31 00 00 3f ad 6d 6f 6f 76 00 00 00 6c 6d 76 68 64 00 00 ... 14352719 more bytes>,
+  size: 14352769
+}
+
+we save the file in cloud and never in server bcuz in production env we dont have ssd or hdd. cloud storage example ": cloudinary,imageKit(indian).
 
