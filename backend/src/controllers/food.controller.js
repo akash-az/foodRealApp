@@ -2,6 +2,7 @@ const foodModel = require("../models/food.model");
 const storageService = require("../services/storage.service");
 const { v4: uuid } = require("uuid");
 
+// [protected api]
 async function createFood(req, res) {
   console.log(req.foodPartner); // this value is coming from authFoodPartnerMiddleware, we can access it in all controllers where we want to use it by writing req.foodPartner
   console.log(req.body); // when in response a file is sent (like video), server cannot read it directly so we use multer for it. multer is used as middlewear in food.routes.js file,
@@ -12,6 +13,7 @@ async function createFood(req, res) {
   const fileUploadResult = await storageService.uploadFile(
     req.file.buffer,
     uuid(),
+    console.log("req.file.originalname", "uuid worked")
   ); // this is the function created in storage.service.js file for uploading file to imagekit. it takes 2 parameter, first is the file which is coming from multer middlewear and second is the name with which we want to save the file in imagekit. here we are using uuid library for creating unique name for every file.
 
   console.log(fileUploadResult); // this result is coming from imagekit after uploading file, it has url of uploaded file, fileId and other details.
@@ -33,6 +35,21 @@ async function createFood(req, res) {
   //   });
 }
 
-module.exports = { createFood };
+
+async function getFoodItems(req,res) {
+
+  const foodItems = await foodModel.find({});
+
+  res.status(200).json({
+    message: "Food Items fetched Successfully",
+    foodItems
+  })
+}
+
+// async function getAllfoods
+// module.exports = { createFood };
 
 // original filename just info : `${uuid()}-${req.file.originalname}`
+
+
+module.exports = {createFood,getFoodItems}

@@ -15,7 +15,9 @@ router.post(
   authMiddleware.authFoodPartnerMiddleware,
   upload.single("video"), // this is the middlewear for uploading file, "video" is the name of the key in postman form-data where we are uploading file.
   // when we use this middlewear we can access file in req.file and other data in req.body
-  foodController.createFood,
+  foodController.createFood
 );
+
+router.get("/",authMiddleware.authUserMiddleware, foodController.getFoodItems)
 
 module.exports = router;
