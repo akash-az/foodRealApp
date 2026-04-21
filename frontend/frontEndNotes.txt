@@ -1,0 +1,38 @@
+
+
+ ERROR  :
+
+Error : register:1 Access to XMLHttpRequest at 'http://localhost:3000/api/auth/user/register' from origin 'http://localhost:5173' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+
+UserRegister.jsx:17 
+ POST http://localhost:3000/api/auth/user/register net::ERR_FAILED
+axios.js?v=f6503888:2010 Uncaught (in promise) AxiosError: Network Error
+
+
+Reason : cors error.
+
+solutuion : install cors library
+
+ in app.js
+ const cors = require('cors')
+
+ app.use(cors({
+    origin:"http://localhost:3000",
+    credentials:true
+ }))
+
+ ** but in API call if u do not write withCredentials: true => token will not be saved.
+
+   const response = await axios.post("http://localhost:3000/api/auth/user/register", {
+
+            fullName: firstName + " " + lastName,
+            email: email,
+            password: password
+        },{
+            withCredentials: true
+        })
+
+
+-------------------------------------------------------------        
+
+

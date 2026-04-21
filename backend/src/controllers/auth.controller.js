@@ -9,7 +9,7 @@ const jwt = require("jsonwebtoken");
 async function registerUser(req, res) {
   console.log("BODY:", req.body);
 
-  const { fullName, email, password } = req.body; // express server cannot automatially read data from req.body. we need middleware for it.
+  const { fullName, email, password, } = req.body; // express server cannot automatially read data from req.body. we need middleware for it.
   // We use app.use(express.json()); //  middleware for reading data from request body. data redable banata hai requst body ka. in app.js
 
   // then we check if an accnt already exists with coming info.
@@ -114,8 +114,9 @@ async function logoutUser(req, res) {
   });
 }
 
+
 async function registerFoodPartner(req, res) {
-  const { name, email, password } = req.body;
+  const { bussinessName, contactName, email, password, phone, address } = req.body;
 
   const isAccountAlreadyExists = await foodPartnerModel.findOne({ email });
 
@@ -128,9 +129,13 @@ async function registerFoodPartner(req, res) {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const foodPartner = await foodPartnerModel.create({
-    name,
+    contactName,
+    bussinessName,
     email,
     password: hashedPassword,
+    phone,
+    address
+  
   });
 
   const token = jwt.sign({ id: foodPartner._id }, process.env.JWT_SECRET);
@@ -141,8 +146,9 @@ async function registerFoodPartner(req, res) {
     message: "User is registered successfully",
     user: {
       _id: foodPartner._id,
-      name: foodPartner.name,
+      contactName: foodPartner.contactName,
       email: foodPartner.email,
+      phone: foodPartner.phone,
     },
   });
 }
