@@ -1,0 +1,313 @@
+/* ========== MOBILE-FIRST APPROACH ========== */
+
+.create-food-container {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--surface);
+  padding: var(--spacing-md);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: var(--spacing-lg);
+  padding-bottom: var(--spacing-xl);
+}
+
+.create-food-card {
+  width: 100%;
+  max-width: 500px;
+  background: var(--background);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+}
+
+/* Header Section */
+.create-food-header {
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+}
+
+.create-food-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-sm) 0;
+  line-height: var(--line-height-tight);
+}
+
+.create-food-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: var(--line-height-normal);
+}
+
+/* Form Section */
+.create-food-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.form-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Input Fields */
+.form-input {
+  width: 100%;
+  padding: var(--spacing-md);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family);
+  background: var(--input-bg);
+  color: var(--text-primary);
+  transition: var(--transition-base);
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+.form-input::placeholder {
+  color: var(--input-placeholder);
+}
+
+/* Textarea */
+.form-textarea {
+  width: 100%;
+  padding: var(--spacing-md);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family);
+  background: var(--input-bg);
+  color: var(--text-primary);
+  transition: var(--transition-base);
+  resize: vertical;
+  min-height: 100px;
+  box-sizing: border-box;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+.form-textarea::placeholder {
+  color: var(--input-placeholder);
+}
+
+/* Video Upload */
+.video-upload-wrapper {
+  position: relative;
+}
+
+.video-input {
+  display: none;
+}
+
+.video-upload-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl);
+  border: 2px dashed var(--primary-color);
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 107, 53, 0.05),
+    rgba(0, 78, 137, 0.05)
+  );
+  cursor: pointer;
+  transition: var(--transition-base);
+  gap: var(--spacing-md);
+}
+
+.video-upload-label:hover {
+  border-color: var(--primary-hover);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 107, 53, 0.1),
+    rgba(0, 78, 137, 0.1)
+  );
+}
+
+.video-upload-icon {
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-base);
+}
+
+.video-upload-label:hover .video-upload-icon {
+  color: var(--primary-hover);
+  transform: scale(1.1);
+}
+
+.video-upload-text {
+  text-align: center;
+}
+
+.video-upload-main {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+}
+
+.video-upload-sub {
+  margin: var(--spacing-xs) 0 0 0;
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+/* Video Preview */
+.video-preview {
+  margin-top: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.preview-video {
+  width: 100%;
+  max-height: 300px;
+  border-radius: var(--radius-md);
+  background: #000;
+  box-shadow: var(--shadow-md);
+}
+
+.remove-video-btn {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--error-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+.remove-video-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* Submit Button */
+.submit-btn {
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--primary-hover)
+  );
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: var(--transition-base);
+  margin-top: var(--spacing-md);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+/* ========== TABLET SCREENS (768px and above) ========== */
+@media (min-width: 768px) {
+  .create-food-container {
+    padding: var(--spacing-xl);
+  }
+
+  .create-food-card {
+    max-width: 600px;
+    padding: var(--spacing-2xl);
+  }
+
+  .create-food-title {
+    font-size: var(--font-size-3xl);
+  }
+
+  .create-food-subtitle {
+    font-size: var(--font-size-base);
+  }
+
+  .form-input,
+  .form-textarea {
+    padding: var(--spacing-lg);
+  }
+
+  .preview-video {
+    max-height: 400px;
+  }
+}
+
+/* ========== DESKTOP SCREENS (1024px and above) ========== */
+@media (min-width: 1024px) {
+  .create-food-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+
+  .create-food-card {
+    max-width: 700px;
+  }
+
+  .create-food-title {
+    font-size: var(--font-size-3xl) * 1.2;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .preview-video {
+    max-height: 500px;
+  }
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.create-food-card {
+  animation: fadeIn var(--transition-base);
+}
